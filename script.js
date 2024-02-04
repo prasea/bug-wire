@@ -144,20 +144,29 @@ function checkCollision() {
       height: obstacleHeight,
     };
     if (areColliding(bugRect, obstacleRect)) {
-      gameOver();
       return true; // Collision detected
     }
   }
 
   return false; // No collision detected
 }
-function gameOver() {
-  alert("Game over");
-  obstacles = [];
-  myScore = 0;
-  document.getElementById('score').textContent = 0
-}
 
+// Flag to track game over state
+let isGameOver = false;
+function gameOver() {
+  // Display pop-up with current score and restart button
+  context.fillStyle = "rgba(0, 0, 0, 0.8)";
+  context.fillRect(0, 0, board.width, board.height);
+
+  context.fillStyle = "#fff";
+  context.font = "30px Arial";
+  context.textAlign = "center";
+  context.fillText("Game Over", board.width / 2, board.height / 2.5);
+
+  context.font = "20px Courier";
+  context.fillText("Your Score: " + myScore, board.width / 2, board.height / 2);
+
+}
 
 function drawWires() {
   // Draw wires
@@ -186,9 +195,13 @@ function draw() {
 function animate() {
   context.clearRect(0, 0, board.width, board.height);
   draw()
-  if (!checkCollision()) {
-    updateScore();
+  updateScore();
+  if (checkCollision())
+    isGameOver = true
+  if (!isGameOver) {
+    requestAnimationFrame(animate);
+  } else {
+    gameOver();
   }
-  requestAnimationFrame(animate);
 }
 animate();
