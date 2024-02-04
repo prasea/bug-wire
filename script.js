@@ -153,6 +153,9 @@ function checkCollision() {
 
 // Flag to track game over state
 let isGameOver = false;
+
+let playAgainButton = document.querySelector(".play-again-button");
+
 function gameOver() {
   // Display pop-up with current score and restart button
   context.fillStyle = "rgba(0, 0, 0, 0.8)";
@@ -166,7 +169,22 @@ function gameOver() {
   context.font = "20px Courier";
   context.fillText("Your Score: " + myScore, board.width / 2, board.height / 2);
 
+  playAgainButton.addEventListener("click", () => {
+    window.location.reload();
+    isGameOver = false
+  });
 }
+
+
+function resetGame() {
+  isGameOver = false;
+  bugX = wires[2].x;
+  bugY = boardHeight;
+  obstacleSpeed = 5;
+  obstacleGenerationInterval = 800;
+  obstacles = [];
+}
+
 
 function drawWires() {
   // Draw wires

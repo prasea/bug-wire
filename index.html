@@ -5,11 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bug on a Wire</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <p><strong>Score</strong> <span id="score"></span></p>
-  <canvas id="board"></canvas>
+  <div class="container">
+    <canvas id="board"></canvas>
+    <div class="score-board">
+      <p><strong>Score</strong> <span id="score"></span></p>
+      <button type="button" class="play-again-button">Play Again</button>
+    </div>
+  </div>
   <script src="./script.js"></script>
 </body>
 
