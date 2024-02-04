@@ -103,7 +103,6 @@ function updateObstacles() {
   for (let obstacle of obstacles) {
     obstacle.y += obstacleSpeed;
   }
-  updateScore()
 }
 let myScore = 0;
 function updateScore() {
@@ -144,7 +143,6 @@ function checkCollision() {
       width: obstacleWidth,
       height: obstacleHeight,
     };
-
     if (areColliding(bugRect, obstacleRect)) {
       gameOver();
       return true; // Collision detected
@@ -154,7 +152,10 @@ function checkCollision() {
   return false; // No collision detected
 }
 function gameOver() {
-  console.log("Game over");
+  alert("Game over");
+  obstacles = [];
+  myScore = 0;
+  document.getElementById('score').textContent = 0
 }
 
 
@@ -185,6 +186,9 @@ function draw() {
 function animate() {
   context.clearRect(0, 0, board.width, board.height);
   draw()
+  if (!checkCollision()) {
+    updateScore();
+  }
   requestAnimationFrame(animate);
 }
 animate();
