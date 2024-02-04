@@ -173,8 +173,32 @@ function gameOver() {
     window.location.reload();
     isGameOver = false
   });
+
+  stopTimer();
 }
 
+// How long have you been playing?
+let startTime;
+let timerInterval, scoreInterval;
+let timerStarted = false;
+
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimer, 1000);
+}
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+let elapsedTime, minutes, seconds;
+function updateTimer() {
+  elapsedTime = Date.now() - startTime;
+  minutes = Math.floor(elapsedTime / (60 * 1000));
+  seconds = Math.floor((elapsedTime % (60 * 1000)) / 1000);
+  const formattedTime = `${String(minutes).padStart(2, "0")}:${String(
+    seconds
+  ).padStart(2, "0")}`;
+  document.getElementById("timer").innerHTML = formattedTime;
+}
 
 function resetGame() {
   isGameOver = false;
@@ -187,7 +211,6 @@ function resetGame() {
 
 
 function drawWires() {
-  // Draw wires
   context.fillStyle = "#000";
   for (let wire of wires) {
     context.fillRect(wire.x - 1.5, 0, 3, board.height);
@@ -213,9 +236,16 @@ function draw() {
 function animate() {
   context.clearRect(0, 0, board.width, board.height);
   draw()
-  updateScore();
-  if (checkCollision())
+  if (!checkCollision()) {
+    updateScore();
+    if (!timerStarted) {
+      startTimer();
+      timerStarted = true
+    }
+  } else {
     isGameOver = true
+    timerStarted = false
+  }
   if (!isGameOver) {
     requestAnimationFrame(animate);
   } else {
