@@ -65,7 +65,7 @@ window.addEventListener("keydown", function (event) {
 let obstacleWidth = 15;
 let obstacleHeight = 15;
 let obstacleSpeed = 3; // movement of obstacle
-let obstacleGenerationInterval = 900;
+let obstacleGenerationInterval = 500;
 let obstacles = [];
 const obstacleImage = new Image();
 obstacleImage.src = "img/crow.png";
@@ -204,7 +204,7 @@ function resetGame() {
   isGameOver = false;
   bugX = wires[2].x;
   bugY = boardHeight;
-  obstacleSpeed = 5;
+  obstacleSpeed = 3;
   obstacleGenerationInterval = 800;
   obstacles = [];
 }
@@ -232,6 +232,20 @@ function draw() {
   drawBug();
   drawObstacles();
 }
+
+function increaseDifficulty() {
+  // Increase obstacle speed gradually
+  if (obstacleSpeed < 10) {
+    obstacleSpeed += 0.1;
+  }
+
+  // Reduce the time interval for generating new obstacles gradually
+  if (obstacleGenerationInterval > 400) {
+    obstacleGenerationInterval -= 10;
+  }
+}
+setInterval(increaseDifficulty, 1000); // Increase difficulty every 20 seconds
+
 
 function animate() {
   context.clearRect(0, 0, board.width, board.height);
