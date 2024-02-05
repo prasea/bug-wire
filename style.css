@@ -49,4 +49,5 @@ p {
   background-color: #333;
   color: #fff; 
   font-weight: bold; 
+  display: none;
 }

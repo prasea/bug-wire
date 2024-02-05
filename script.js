@@ -163,17 +163,29 @@ function gameOver() {
   context.fillRect(0, 0, board.width, board.height);
 
   context.fillStyle = "#fff";
-  context.font = "30px Arial";
+  context.font = "40px Arial";
   context.textAlign = "center";
   context.fillText("Game Over", board.width / 2, board.height / 2.5);
 
   context.font = "20px Courier";
   context.fillText("Your Score: " + myScore, board.width / 2, board.height / 2);
 
+  context.font = "25px Courier";
+  context.fillText("Click the PlayAgain button", board.width / 2, board.height / 1.5);
+  context.fillText("or Press Space to Restart", board.width / 2, board.height / 1.4);
+
+  playAgainButton.style.display = 'block';
   playAgainButton.addEventListener("click", () => {
     window.location.reload();
     isGameOver = false
   });
+  window.addEventListener('keypress', (e) => {
+    if (e.code == 'Space') {
+      window.location.reload();
+      isGameOver = false
+
+    }
+  })
 
   stopTimer();
 }
