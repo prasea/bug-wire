@@ -9,11 +9,13 @@ let wires = [
   { x: 4 * (boardWidth / 5) } // fourth wire position 800
 ];
 
+let bugMoveSound = new Audio("sound/move.mp3")
 let bugWidth = 30; // bug width
 let bugHeight = 30; // bug height
 
 let bugX = wires[2].x; // Initialize bug position to the middle wire in x-axis
 let bugY = boardHeight; // fixed position of bug in y-axis
+
 function moveBug(direction) {
   // Determine the current wire index of bug
   let bugWireIndex;
@@ -123,6 +125,7 @@ function areColliding(rect1, rect2) {
   }
 }
 
+let collisionSound = new Audio('./audio/swallow.mp3');
 // check collision
 function checkCollision() {
   const bugRect = {
@@ -140,6 +143,8 @@ function checkCollision() {
       height: obstacleHeight,
     };
     if (areColliding(bugRect, obstacleRect)) {
+      collisionSound.play()
+      document.querySelector('#gameSound').pause()
       return true; // Collision detected
     }
   }
