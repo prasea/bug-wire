@@ -9,25 +9,11 @@ let wires = [
   { x: 4 * (boardWidth / 5) } // fourth wire position 800
 ];
 
-
-board = document.getElementById("board");
-context = board.getContext("2d");
-board.height = boardHeight;
-board.width = boardWidth;
-
-const backGround = new Image();
-backGround.src = "img/bg.png";
-const bugImage = document.createElement('img');
-bugImage.src = "img/bug.png";
-
-
 let bugWidth = 30; // bug width
 let bugHeight = 30; // bug height
 
 let bugX = wires[2].x; // Initialize bug position to the middle wire in x-axis
 let bugY = boardHeight; // fixed position of bug in y-axis
-
-
 function moveBug(direction) {
   // Determine the current wire index of bug
   let bugWireIndex;
@@ -50,6 +36,16 @@ function moveBug(direction) {
   bugX = wires[bugWireIndex].x;
 }
 
+board = document.getElementById("board");
+context = board.getContext("2d");
+board.height = boardHeight;
+board.width = boardWidth;
+
+const backGround = new Image();
+backGround.src = "img/bg.png";
+const bugImage = document.createElement('img');
+bugImage.src = "img/bug.png";
+
 window.addEventListener("keydown", function (event) {
   switch (event.key) {
     case "ArrowRight":
@@ -62,13 +58,13 @@ window.addEventListener("keydown", function (event) {
 });
 
 // obstacles
-let obstacleWidth = 15;
-let obstacleHeight = 15;
+let obstacleWidth = 50;
+let obstacleHeight = 50;
 let obstacleSpeed = 3; // movement of obstacle
 let obstacleGenerationInterval = 500;
 let obstacles = [];
 const obstacleImage = new Image();
-obstacleImage.src = "img/crow.png";
+obstacleImage.src = "./img/flap.png";
 
 
 // function to  create a new obstacle 
