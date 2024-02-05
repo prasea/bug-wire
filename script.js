@@ -227,12 +227,22 @@ function drawBug() {
   );
 
 }
+let backgroundOffset = 0;
 function draw() {
-  context.drawImage(backGround, 0, 0, board.width, board.height);
+  backgroundOffset += 1;
+  backgroundOffset %= board.height;
+
+  context.clearRect(0, 0, board.width, board.height);
+
+  // Draw the background at the updated offset
+  context.drawImage(backGround, 0, backgroundOffset - board.height, board.width, board.height);
+  context.drawImage(backGround, 0, backgroundOffset, board.width, board.height);
+
   drawWires();
   drawBug();
   drawObstacles();
 }
+
 
 function increaseDifficulty() {
   // Increase obstacle speed gradually
